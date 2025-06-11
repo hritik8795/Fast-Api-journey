@@ -1,4 +1,4 @@
-from database import AsyncSessionLocal
+from db.database import AsyncSessionLocal
 from typing import AsyncGenerator
 
 

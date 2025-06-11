@@ -2,9 +2,11 @@
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from models import User
-from dependencies import get_db
-from database import Base, engine
+
+# from app.models.usermodels import User
+from models.usermodels import User
+from core.dependencies import get_db
+from db.database import Base, engine
 
 app = FastAPI()
 
