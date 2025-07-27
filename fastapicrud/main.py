@@ -42,23 +42,36 @@ def login(user: schemas.UserLogin, db: Session = Depends(get_db)):
 
 
 # # book
-# @app.post("/books", response_model=schema.bookSchema.BookOut)
-# def create_book(
-#     book: schema.bookSchema.BookCreate,
-#     db: Session = Depends(get_db),
-#     user: schema.schemas.UserLogin = Depends(),
-# ):
-#     return bookcrud.create_book(db, book, user_id=1)
+@app.post("/books", response_model=schema.bookSchema.BookOut)
+def create_book(
+    book: schema.bookSchema.BookCreate,
+    db: Session = Depends(get_db),
+    user: schema.schemas.UserLogin = Depends(),
+):
+    return bookcrud.create_book(db, book, user_id=1)
 
 
-# @app.get("/books/", response_model=List[schema.bookSchema.BookOut])
-# def read_books(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
-#     return bookcrud.get_book
+@app.get("/books/", response_model=List[schema.bookSchema.BookOut])
+def read_books(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
+    return bookcrud.get_books(db, skip=skip, limit=limit)
 
 
-# @app.get("/books/{book_id}", response_model=schema.bookSchema.BookOut)
-# def read_book(book_id: int = Path(...), db: Session = Depends(get_db)):
-#     book = bookcrud.get_book(db, book_id)
-#     if not book:
-#         raise HTTPException(status_code=404, detail="book Not Found")
-#     return book
+@app.get("/books/{book_id}", response_model=schema.bookSchema.BookOut)
+def read_book(book_id: int = Path(...), db: Session = Depends(get_db)):
+    book = bookcrud.get_book(db, book_id)
+    if not book:
+        raise HTTPException(status_code=404, detail="book Not Found")
+    return book
+@app.put("/books/{book_id}", response_model=schema.bookSchema.BookOut)
+def update_book(book_id: int, book: schema.bookSchema.BookCreate, db: Session = Depends(get_db)):
+    updated_book = bookcrud.update_book(db, book_id, book)
+    if not updated_book:
+        raise HTTPException(status_code=404, detail="Book not found")
+    return updated_book
+
+@app.delete("/books/{book_id}")
+def delete_book(book_id: int, db: Session = Depends(get_db)):
+    deleted_book = bookcrud.delete_book(db, book_id)
+    if not deleted_book:
+        raise HTTPException(status_code=404, detail="Book not found")
+    return {"detail": "Book deleted successfully"}
