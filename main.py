@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from api import auth,blog
+from api import auth,blog,reports
 
 from db.database import engine
 from models.user import User  
@@ -15,3 +15,4 @@ async def startup():
         await conn.run_sync(Base.metadata.create_all)
 app.include_router(auth.router)
 app.include_router(blog.router) 
+app.include_router(reports.router) 

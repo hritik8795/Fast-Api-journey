@@ -19,7 +19,7 @@ from sqlalchemy import text
 import asyncio
 import os
 
-DATABASE_URL = "postgresql+asyncpg://postgres:12345@localhost:5432/BlogApp"
+DATABASE_URL = "postgresql+asyncpg://postgres:12345@localhost:5432/blogapp"
 
 engine = create_async_engine(DATABASE_URL, echo=False)
 

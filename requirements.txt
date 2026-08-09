@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+greenlet
+asyncpg
+pydantic[email]
+python-dotenv
+python-multipart
+python-jose[cryptography]
+passlib[bcrypt]
